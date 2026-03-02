@@ -1,0 +1,17 @@
+.date-display {
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
+}
+
+.fw-mono {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 1rem 3rem rgba(0,0,0,0.1) !important;
+  }
+}

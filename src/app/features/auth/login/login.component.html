@@ -1,0 +1,60 @@
+<div class="login-container d-flex align-items-center justify-content-center vh-100 bg-light p-3">
+  <div class="card shadow-lg p-4 border-0 animate__animated animate__fadeIn" style="max-width: 420px; width: 100%; border-radius: 20px;">
+    
+    <div class="text-center mb-4">
+      <h2 class="fw-bold text-primary">Sklad <span class="text-dark">PRO</span></h2>
+      <p class="text-muted small text-uppercase fw-bold">Enterprise Access Control</p>
+    </div>
+
+    <!-- РЕЖИМ 1: ОБЫЧНЫЙ ВХОД -->
+    <div *ngIf="!isChangeMode()">
+      <div class="mb-3">
+        <label class="form-label small fw-bold text-secondary text-uppercase">Username</label>
+        <input type="text" [(ngModel)]="username" class="form-control form-control-lg border-2" placeholder="e.g. j.doe">
+      </div>
+      <div class="mb-4">
+        <label class="form-label small fw-bold text-secondary text-uppercase">Password</label>
+        <input type="password" [(ngModel)]="password" class="form-control form-control-lg border-2" placeholder="••••••••">
+      </div>
+      <button (click)="login()" [disabled]="loading()" class="btn btn-primary btn-lg w-100 fw-bold shadow-sm rounded-pill py-3">
+        {{ loading() ? 'VERIFYING...' : 'SIGN IN' }}
+      </button>
+      
+      <div class="mt-4 p-2 bg-light rounded-3 border-start border-warning border-4">
+        <p class="x-small text-muted mb-0">
+          <i class="bi bi-shield-lock me-1 text-warning"></i>
+          New staff? Use your <strong>Temporary Password</strong> to initiate secure onboarding.
+        </p>
+      </div>
+    </div>
+
+    <!-- РЕЖИМ 2: ОБЯЗАТЕЛЬНАЯ СМЕНА ПАРОЛЯ (Mandatory Change) -->
+    <div *ngIf="isChangeMode()" class="animate__animated animate__pulse">
+      <div class="alert alert-warning border-0 small mb-4 shadow-sm">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+        <strong>Security Action Required:</strong><br>
+        Please set your permanent password before proceeding.
+      </div>
+      
+      <div class="mb-3">
+        <label class="form-label small fw-bold text-secondary text-uppercase">New Password</label>
+        <input type="password" [(ngModel)]="newPassword" class="form-control form-control-lg border-2" placeholder="Min 6 characters">
+      </div>
+      <div class="mb-4">
+        <label class="form-label small fw-bold text-secondary text-uppercase">Confirm New Password</label>
+        <input type="password" [(ngModel)]="confirmPassword" class="form-control form-control-lg border-2" placeholder="Repeat password">
+      </div>
+      <button (click)="changePassword()" [disabled]="loading() || !newPassword" class="btn btn-success btn-lg w-100 fw-bold shadow-sm rounded-pill py-3">
+        {{ loading() ? 'SAVING...' : 'SAVE & CONTINUE' }}
+      </button>
+    </div>
+
+    <div *ngIf="error()" class="alert alert-danger mt-3 small text-center border-0">
+      {{ error() }}
+    </div>
+
+    <div class="text-center mt-4 border-top pt-3">
+      <a routerLink="/auth/register" class="text-decoration-none small fw-bold">New company? Register here</a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="container mt-5">
+  <div class="card shadow-sm border-0 bg-white p-5 text-center">
+    <h1 class="display-5 fw-bold text-primary mb-3">Warehouse Management PRO</h1>
+    
+    <!-- Dynamic Date and Time Display -->
+    <div class="date-display py-3 px-4 bg-light rounded-pill d-inline-block mx-auto border mb-4">
+      <span class="fw-bold text-dark me-3">
+        📅 {{ currentDate() | date: 'EEEE, MMMM d, yyyy' }}
+      </span>
+      <span class="text-primary border-start ps-3 fw-mono">
+        🕒 {{ currentDate() | date: 'HH:mm:ss' }}
+      </span>
+    </div>
+
+    <p class="lead text-muted">
+      Welcome to your AI-integrated inventory dashboard.
+    </p>
+    
+    <div class="mt-4">
+      <a routerLink="/login" class="btn btn-primary btn-lg px-5 shadow-sm">Enter System</a>
+    </div>
+  </div>
+</div>

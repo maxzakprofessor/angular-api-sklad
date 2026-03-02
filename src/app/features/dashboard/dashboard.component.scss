@@ -1,0 +1,19 @@
+.rounded-4 {
+  border-radius: 1rem !important;
+}
+
+.card {
+  transition: transform 0.2s ease-in-out;
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+.bg-primary { background-color: #0d6efd !important; }
+.bg-success { background-color: #198754 !important; }
+.bg-warning { background-color: #ffc107 !important; }
+
+canvas {
+  width: 100% !important;
+  height: 100% !important;
+}

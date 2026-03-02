@@ -1,0 +1,37 @@
+.about-hero {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border: 1px solid rgba(13, 110, 253, 0.1);
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+.btn-lg {
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &.btn-success {
+    background: linear-gradient(45deg, #198754, #20c997);
+    border: none;
+    &:hover {
+      box-shadow: 0 10px 20px rgba(25, 135, 84, 0.3);
+      transform: scale(1.05);
+    }
+  }
+}
+
+.accordion-button {
+  &:not(.collapsed) {
+    background-color: #f8f9fa;
+    box-shadow: none;
+  }
+  &:focus {
+    box-shadow: none;
+    border-color: rgba(0,0,0,.125);
+  }
+}
+
+.italic { font-style: italic; }

@@ -1,0 +1,57 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow-sm sticky-top">
+  <div class="container">
+    <!-- LOGO -->
+    <a class="navbar-brand fw-bold d-flex align-items-center" routerLink="/">
+      <span class="me-2">📦</span> Sklad PRO <span class="badge bg-primary ms-2" style="font-size: 0.5em;">SaaS</span>
+    </a>
+    
+    <div class="navbar-nav me-auto">
+      <!-- ALWAYS VISIBLE -->
+      <a class="nav-link px-3" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <i class="bi bi-info-circle me-1"></i> About
+      </a>
+
+      <!-- PROTECTED ROUTES (SaaS App) -->
+      <ng-container *ngIf="auth.isLoggedIn()">
+        <a class="nav-link px-3" routerLink="/dashboard" routerLinkActive="active">📊 Dashboard</a>
+        <a class="nav-link px-3" routerLink="/stocks" routerLinkActive="active">🏬 Stocks</a>
+        <a class="nav-link px-3" routerLink="/goods" routerLinkActive="active">🍎 Goods</a>
+        <a class="nav-link px-3" routerLink="/goodincomes" routerLinkActive="active">📥 Incomes</a>
+        <a class="nav-link px-3" routerLink="/goodmoves" routerLinkActive="active">🔄 Moves</a>
+        <a class="nav-link px-3" routerLink="/goodrests" routerLinkActive="active">📈 Balances</a>
+        
+        <!-- 🔥 КНОПКА SALES: С ЭМОДЗИ И ЯРКИМ ЦВЕТОМ -->
+        <a class="nav-link px-3 fw-bold border border-info rounded-pill ms-2" 
+           style="color: #0dcaf0 !important;" 
+           routerLink="/sales" 
+           routerLinkActive="active">
+           💰 Sales
+        </a>
+        
+        <!-- ADMIN ONLY -->
+        <a *ngIf="auth.userName() === 'admin' || auth.userName() === 'm.zakiryanov70'" 
+           class="nav-link px-3 text-warning fw-bold ms-2" routerLink="/users" routerLinkActive="active">👥 Users</a>
+      </ng-container>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="navbar-nav ms-auto align-items-center gap-2">
+      <ng-container *ngIf="!auth.isLoggedIn()">
+        <a class="btn btn-outline-success btn-sm px-3 fw-bold rounded-pill" routerLink="/auth/register">
+          <i class="bi bi-rocket-takeoff me-1"></i> Register
+        </a>
+        <a class="btn btn-primary btn-sm px-4 shadow-sm fw-bold rounded-pill" routerLink="/login">
+          🔐 Login
+        </a>
+      </ng-container>
+      
+      <ng-container *ngIf="auth.isLoggedIn()">
+        <div class="me-3 text-end text-light border-end pe-3 border-secondary border-opacity-50 d-none d-md-block">
+          <div class="fw-bold small text-info text-uppercase">{{ auth.tenantName() }}</div>
+          <div class="opacity-75" style="font-size: 0.75rem;">User: {{ auth.userName() }}</div>
+        </div>
+        <button class="btn btn-outline-danger btn-sm px-3 rounded-pill" (click)="logout()">Logout</button>
+      </ng-container>
+    </div>
+  </div>
+</nav>

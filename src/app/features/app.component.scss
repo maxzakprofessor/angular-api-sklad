@@ -1,0 +1,28 @@
+.fw-black { font-weight: 900; }
+
+.btn-nav:hover { 
+  background-color: #f8f9fa; 
+  color: #0d6efd; 
+  transform: translateY(-2px); 
+  transition: 0.2s; 
+}
+
+/* Equivalent to .router-link-active */
+.active-link { 
+  background-color: #0d6efd !important; 
+  color: white !important; 
+  font-weight: bold; 
+}
+
+.animate-bounce { 
+  animation: bounce 2s infinite; 
+}
+
+@keyframes bounce { 
+  0%, 100% { transform: translateY(0); } 
+  50% { transform: translateY(-10px); } 
+}
+
+.content-wrapper {
+  transition: all 0.3s ease;
+}

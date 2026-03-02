@@ -1,0 +1,9 @@
+.btn-light.shadow-sm {
+    border: 1px solid #dee2e6;
+    transition: all 0.2s ease;
+    
+    &:hover {
+        background-color: #f8f9fa;
+        transform: translateY(-1px);
+    }
+}

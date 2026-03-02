@@ -1,0 +1,38 @@
+# --- Build Outputs ---
+/dist
+/tmp
+/out-tsc
+/bazel-out
+
+# --- Dependencies ---
+/node_modules
+
+# --- IDEs/Editors ---
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# --- Environments (Security) ---
+# We ignore the actual environment files to prevent leaking API keys/secrets
+
+# --- Testing ---
+/coverage
+/.nyc_output
+
+# --- Logs/Runtime ---
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+.eslintcache
+
+# --- OS Specific ---
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+__pycache__/
+*.pyc

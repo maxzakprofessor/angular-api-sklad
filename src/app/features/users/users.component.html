@@ -1,0 +1,87 @@
+<div class="container mt-4 animate__animated animate__fadeIn">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold text-dark"><i class="bi bi-people-fill me-2 text-primary"></i>Staff Management</h2>
+    <span class="badge bg-primary shadow-sm px-3 py-2 fw-bold text-uppercase">Tenant: {{ auth.tenantName() }}</span>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card shadow-sm border-0 rounded-4 p-4 bg-white sticky-top" style="top: 80px;">
+        <h5 class="fw-bold mb-3 text-primary text-uppercase small">Register Employee</h5>
+        <div class="mb-3">
+          <label class="small fw-bold text-muted text-uppercase mb-2">Username</label>
+          <input type="text" [(ngModel)]="form.username" class="form-control border-2 shadow-none" placeholder="j.doe">
+        </div>
+        <div class="mb-4">
+          <label class="small fw-bold text-muted text-uppercase mb-2">Full Name</label>
+          <input type="text" [(ngModel)]="form.fullName" class="form-control border-2 shadow-none" placeholder="John Doe">
+        </div>
+        <button class="btn btn-primary w-100 fw-bold py-2 shadow-sm rounded-pill" (click)="registerUser()">GENERATE ACCESS</button>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+      <div class="card shadow-sm border-0 rounded-4 overflow-hidden bg-white">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-dark small fw-bold">
+            <tr>
+              <th class="ps-4 py-3">MEMBER / LOGIN</th>
+              <th class="text-center">STATUS</th>
+              <th class="text-center pe-4">ACTION</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of userList()">
+              <td class="ps-4">
+                <div class="fw-bold text-dark fs-6">{{ user.fullName || 'No Name' }}</div>
+                <div class="small text-muted font-monospace">@{{ user.username }}</div>
+              </td>
+              <td class="text-center">
+                <span [class]="user.needsPasswordChange ? 'badge bg-warning text-dark px-3 rounded-pill' : 'badge bg-success px-3 rounded-pill'">
+                  {{ user.needsPasswordChange ? 'PENDING' : 'ACTIVE' }}
+                </span>
+              </td>
+              <td class="text-center pe-4">
+                <!-- КНОПКА УДАЛЕНИЯ -->
+                <button *ngIf="user.username !== auth.userName()" type="button" class="btn btn-outline-danger btn-sm rounded-pill px-3 shadow-sm" (click)="prepareDelete(user.id)">
+                  <i class="bi bi-trash3 me-1"></i> Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🛑 DELETE CONFIRMATION MODAL -->
+  <div *ngIf="isDeleteModalOpen()" class="modal-backdrop fade show"></div>
+  <div *ngIf="isDeleteModalOpen()" class="modal d-block animate__animated animate__fadeInDown" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg rounded-4 p-4 text-center">
+        <div class="display-4 text-danger mb-3"><i class="bi bi-exclamation-octagon-fill"></i></div>
+        <h4 class="fw-bold text-dark mb-2">Remove Employee?</h4>
+        <p class="text-muted">This action will permanently revoke access for this user. Are you sure?</p>
+        <div class="d-flex justify-content-center gap-2 mt-4">
+          <button class="btn btn-light border px-4 rounded-pill fw-bold" (click)="closeModals()">Cancel</button>
+          <button class="btn btn-danger px-4 fw-bold shadow-sm rounded-pill" (click)="confirmDelete()">Yes, Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ SUCCESS MODAL (Same as before, English) -->
+  <div *ngIf="isSuccessModalOpen()" class="modal-backdrop fade show"></div>
+  <div *ngIf="isSuccessModalOpen()" class="modal d-block animate__animated animate__zoomIn" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg rounded-4 p-5 text-center">
+        <h4 class="fw-bold text-success mb-4">Access Generated!</h4>
+        <div class="bg-light p-4 rounded-4 border my-3">
+          <div class="h2 fw-bold text-primary mb-0 font-monospace">{{ generatedInfo()?.temporaryPassword }}</div>
+        </div>
+        <p class="small text-muted mb-4">Provide this code to <strong>{{ generatedInfo()?.username }}</strong>.</p>
+        <button class="btn btn-primary w-100 py-3 rounded-pill fw-bold" (click)="closeModals()">DONE</button>
+      </div>
+    </div>
+  </div>
+</div>

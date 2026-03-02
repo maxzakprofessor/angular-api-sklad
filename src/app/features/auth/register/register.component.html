@@ -1,0 +1,59 @@
+<div class="register-container d-flex align-items-center justify-content-center vh-100 p-3">
+  <div class="card register-card shadow-lg p-4" style="max-width: 460px; width: 100%;">
+    
+    <div class="text-center mb-4">
+      <div class="display-6 mb-2">🚀</div>
+      <h2 class="card-title fw-bold text-dark">Sklad <span class="text-primary">PRO</span></h2>
+      <p class="text-muted small">Регистрация вашей компании в SaaS-системе</p>
+    </div>
+
+    <!-- ШАГ 1: Ввод данных компании -->
+    <div *ngIf="step() === 1" class="animate__animated animate__fadeIn">
+      <div class="mb-3">
+        <label class="form-label small fw-bold text-secondary text-uppercase">Email руководителя</label>
+        <input type="email" [(ngModel)]="email" class="form-control form-control-lg" placeholder="ceo@company.kz">
+      </div>
+      <div class="mb-4">
+        <label class="form-label small fw-bold text-secondary text-uppercase">Название компании</label>
+        <input type="text" [(ngModel)]="companyName" class="form-control form-control-lg" placeholder="Напр: ТОО Логистик Плюс">
+      </div>
+      <button (click)="requestRegistration()" [disabled]="loading()" class="btn btn-primary btn-lg w-100 fw-bold shadow-sm">
+        {{ loading() ? 'Отправка запроса...' : 'Получить код на Email' }}
+      </button>
+    </div>
+
+    <!-- ШАГ 2: Активация кодом -->
+    <div *ngIf="step() === 2" class="animate__animated animate__fadeIn">
+      <div class="alert alert-primary border-0 small py-2 shadow-sm mb-4">
+        <i class="bi bi-info-circle me-2"></i> Введите 16-значный код из письма
+      </div>
+      
+      <div class="mb-3">
+        <label class="form-label small fw-bold text-secondary text-uppercase">Код активации</label>
+        <input type="text" [(ngModel)]="token" class="form-control form-control-lg font-monospace" placeholder="Код из письма">
+      </div>
+      
+      <div class="mb-3">
+        <label class="form-label small fw-bold text-secondary text-uppercase">Пароль администратора</label>
+        <input type="password" [(ngModel)]="password" class="form-control form-control-lg mb-2" placeholder="Придумайте пароль">
+        <input type="password" [(ngModel)]="confirmPassword" class="form-control form-control-lg" placeholder="Повторите пароль">
+      </div>
+
+      <button (click)="confirmRegistration()" [disabled]="loading()" class="btn btn-success btn-lg w-100 fw-bold shadow-sm">
+        Активировать аккаунт
+      </button>
+    </div>
+
+    <!-- Статус сообщения -->
+    <div *ngIf="error()" class="alert alert-danger mt-4 small border-0 text-center shadow-sm">
+      {{ error() }}
+    </div>
+    <div *ngIf="success()" class="alert alert-success mt-4 small border-0 text-center shadow-sm">
+      {{ success() }}
+    </div>
+
+    <div class="text-center mt-4 border-top pt-3">
+      <a routerLink="/auth/login" class="text-decoration-none small fw-bold">Вернуться ко входу</a>
+    </div>
+  </div>
+</div>

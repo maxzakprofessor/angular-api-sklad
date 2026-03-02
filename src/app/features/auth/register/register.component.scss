@@ -1,0 +1,26 @@
+.register-container {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.register-card {
+  border: none;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  
+  .card-title {
+    letter-spacing: -1px;
+  }
+}
+
+.form-control-lg {
+  border-radius: 12px;
+  font-size: 1rem;
+  border: 1px solid #dee2e6;
+  &:focus {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.1);
+  }
+}
+
+.btn-lg {
+  border-radius: 12px;
+}

@@ -1,0 +1,48 @@
+<div class="container mt-4 animate__animated animate__fadeIn">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold text-dark"><i class="bi bi-speedometer2 me-2 text-primary"></i>Executive Dashboard</h2>
+    <span class="badge bg-primary shadow-sm px-3 py-2 fw-bold text-uppercase">Tenant: {{ auth.tenantName() }}</span>
+  </div>
+
+  <!-- КАРТОЧКИ -->
+  <div class="row g-4 mb-4">
+    @for (key of objectKeys(cardConfigs); track key) {
+      <div class="col-md-4">
+        <div class="card shadow-sm border-0 rounded-4 p-4 bg-white h-100 shadow-hover">
+          <div class="d-flex align-items-center">
+            <div [class]="'rounded-circle p-3 me-3 text-white ' + cardConfigs[key].color">
+              <i [class]="'bi fs-4 ' + cardConfigs[key].icon"></i>
+            </div>
+            <div>
+              <div class="h2 fw-bold mb-0 text-dark">{{ stats().cards[key] }}</div>
+              <small class="text-muted text-uppercase fw-bold">{{ cardConfigs[key].label }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- ГРАФИК И ИИ -->
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <div class="card shadow-sm border-0 rounded-4 p-4 bg-white h-100">
+        <h5 class="fw-bold mb-4 text-secondary small text-uppercase">Inventory Distribution</h5>
+        <div style="height: 300px;">
+          <canvas #stockChart></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card shadow-sm border-0 rounded-4 p-4 bg-white h-100">
+        <h5 class="fw-bold mb-3 text-secondary small text-uppercase">Gemini AI Analysis</h5>
+        <div class="p-3 bg-light rounded-3 border-start border-warning border-4 mb-3">
+          <p class="mb-0 text-dark italic small">"{{ aiHint() }}"</p>
+        </div>
+        <button class="btn btn-outline-primary w-100 rounded-pill mt-auto fw-bold">
+           Run Deep AI Audit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

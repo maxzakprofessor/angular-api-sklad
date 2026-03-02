@@ -1,0 +1,166 @@
+<div class="container mt-5 mb-5 animate__animated animate__fadeIn">
+  
+  <!-- 🚀 HERO SECTION: Call to Action -->
+  <div class="row justify-content-center mb-5">
+    <div class="col-lg-10">
+      <div class="bg-white p-5 rounded-4 shadow-sm border border-primary border-opacity-25 text-center">
+        <div class="display-1 mb-3">📦</div>
+        <h1 class="display-4 fw-bold text-dark mb-3">
+          Sklad <span class="text-primary">PRO</span> AI
+        </h1>
+        <p class="lead text-muted mb-4 fs-4">
+          Next-generation intelligent SaaS warehouse ecosystem.
+          <br>
+          <span class="badge bg-light text-primary border px-3 py-2 mt-2">Multi-Tenant SaaS Architecture</span> 
+          <span class="badge bg-light text-danger border px-3 py-2 mt-2">Angular 19 (Signals)</span>
+        </p>
+        
+        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+          @if (!isLoggedIn()) {
+            <a routerLink="/auth/register" class="btn btn-success btn-lg px-5 py-3 shadow fw-bold text-white rounded-pill">
+              <i class="bi bi-rocket-takeoff-fill me-2"></i> Create Company (SaaS)
+            </a>
+            <a routerLink="/login" class="btn btn-outline-primary btn-lg px-5 py-3 shadow-sm fw-bold rounded-pill">
+              <i class="bi bi-shield-lock-fill me-2"></i> System Login
+            </a>
+          } @else {
+            <a routerLink="/dashboard" class="btn btn-success btn-lg px-5 py-3 shadow fw-bold text-white rounded-pill">
+              <i class="bi bi-speedometer2 me-2"></i> Go to Dashboard
+            </a>
+          }
+        </div>
+        
+        <p class="mt-4 small text-muted italic">
+          Clean Architecture • SOLID Principles • High-Performance Signals • 2026 Enterprise Standard
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 📚 QUICK START GUIDE & DOCUMENTATION -->
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <div class="accordion shadow-sm rounded-4 overflow-hidden border">
+        
+        <!-- SECTION 1: USER GUIDE -->
+        <div class="accordion-item border-0">
+          <h2 class="accordion-header">
+            <button class="accordion-button fw-bold bg-light text-success" 
+                    [class.collapsed]="activeSection() !== 'guide'"
+                    (click)="toggleSection('guide')" type="button">
+              📘 Quick Start: How to use the system?
+            </button>
+          </h2>
+          <div class="accordion-collapse collapse" [class.show]="activeSection() === 'guide'">
+            <div class="accordion-body bg-white border-top">
+              <div class="row g-4 text-start">
+                <div class="col-md-6 col-lg-3">
+                  <div class="p-3 border rounded-4 h-100 shadow-sm bg-light bg-opacity-10">
+                    <h6 class="fw-bold text-primary small"><i class="bi bi-1-circle-fill me-2"></i>Registration</h6>
+                    <p class="x-small text-muted mb-0">Create your company and activate your SaaS environment via Email-token verification.</p>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                  <div class="p-3 border rounded-4 h-100 shadow-sm bg-light bg-opacity-10">
+                    <h6 class="fw-bold text-primary small"><i class="bi bi-2-circle-fill me-2"></i>Directories</h6>
+                    <p class="x-small text-muted mb-0">Setup your <strong>Stocks</strong> and <strong>Goods</strong>. Data is isolated by your unique Tenant ID.</p>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                  <div class="p-3 border rounded-4 h-100 shadow-sm bg-light bg-opacity-10">
+                    <h6 class="fw-bold text-primary small"><i class="bi bi-3-circle-fill me-2"></i>Logistics</h6>
+                    <p class="x-small text-muted mb-0">Process <strong>Incomes</strong> to update balances and <strong>Moves</strong> for inter-stock logistics.</p>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                  <div class="p-3 border rounded-4 h-100 shadow-sm bg-light bg-opacity-10">
+                    <h6 class="fw-bold text-primary small"><i class="bi bi-4-circle-fill me-2"></i>Analytics</h6>
+                    <p class="x-small text-muted mb-0">Monitor real-time balances and export professional <strong>PDF Reports</strong>.</p>
+                  </div>
+                </div>
+
+                <!-- 🔥 STEP 5: SECURITY -->
+                <div class="col-12 mt-4">
+                  <div class="p-4 border border-warning border-opacity-50 rounded-4 shadow-sm bg-warning bg-opacity-10">
+                    <div class="d-flex align-items-center mb-2">
+                       <h6 class="fw-bold text-dark mb-0"><i class="bi bi-5-circle-fill me-2 text-warning"></i>Staff Management & Mandatory Security</h6>
+                    </div>
+                    <p class="small text-dark mb-0">
+                      When creating a new employee in the <strong>Users</strong> section, the system generates temporary credentials. 
+                      According to security standards, the system <strong>requires the employee to change their password</strong> upon first login. 
+                      Company administrators do not have access to private employee passwords.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 2: ARCHITECTURE -->
+        <div class="accordion-item border-0">
+          <h2 class="accordion-header">
+            <button class="accordion-button fw-bold bg-white text-primary" 
+                    [class.collapsed]="activeSection() !== 'architecture'"
+                    (click)="toggleSection('architecture')" type="button">
+              📖 Architectural Principles & SaaS Isolation
+            </button>
+          </h2>
+          <div class="accordion-collapse collapse" [class.show]="activeSection() === 'architecture'">
+            <div class="accordion-body bg-white border-top text-start">
+              <p>The system is designed with a focus on <strong>data integrity</strong> and horizontal scalability.</p>
+              <div class="row g-2">
+                <div class="col-md-4"><div class="p-2 border rounded bg-light small h-100"><strong>SaaS Isolation:</strong> Logical data separation at the ORM level (Tenant ID).</div></div>
+                <div class="col-md-4"><div class="p-2 border rounded bg-light small h-100"><strong>SRP & OCP:</strong> Adherence to SOLID principles in Angular services and Signal states.</div></div>
+                <div class="col-md-4"><div class="p-2 border rounded bg-light small h-100"><strong>Contract First:</strong> Unified API contract ensures cross-module synchronization.</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 3: TECH STACK -->
+        <div class="accordion-item border-0">
+          <h2 class="accordion-header">
+            <button class="accordion-button fw-bold bg-white text-dark" 
+                    [class.collapsed]="activeSection() !== 'stack'"
+                    (click)="toggleSection('stack')" type="button">
+              🛠 Technology Stack (Multi-Stack 2026)
+            </button>
+          </h2>
+          <div class="accordion-collapse collapse" [class.show]="activeSection() === 'stack'">
+              <div class="accordion-body bg-white border-top p-4 text-start">
+                <div class="mb-3">
+                  <h6 class="fw-bold text-secondary small text-uppercase">Backend Infrastructure:</h6>
+                  <div class="d-flex flex-wrap gap-2">
+                    <span class="badge bg-dark">Python 3.10 (DRF)</span>
+                    <span class="badge bg-dark">PostgreSQL</span>
+                    <span class="badge bg-primary">Redis & SMTP Relay</span>
+                  </div>
+                </div>
+                <div>
+                  <h6 class="fw-bold text-secondary small text-uppercase">Frontend & AI Core:</h6>
+                  <div class="d-flex flex-wrap gap-2">
+                      <span class="badge bg-danger">Angular 19 (Signals)</span>
+                      <span class="badge bg-info text-dark">Bootstrap 5 (UX/UI)</span>
+                      <span class="badge bg-warning text-dark">Gemini 2.0 AI Integration</span>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+
+        <!-- DEVELOPER FOOTER -->
+        <div class="accordion-item border-0 bg-light p-4 text-center">
+           <p class="mb-0 fw-bold text-dark">Developer: Zakiryanov M.M.</p>
+           <p class="small text-muted mb-0 mt-1">Sklad PRO AI • SaaS Migration Architect • 2026</p>
+           <div class="mt-3">
+             <a href="https://github.com" target="_blank" class="btn btn-outline-dark btn-sm rounded-pill px-4 shadow-sm">
+               <i class="bi bi-github me-1"></i> View SaaS Architecture on GitHub
+             </a>
+           </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
