@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-// ПРЯМОЙ ИМПОРТ: Теперь TypeScript и Angular точно знают, что такое bootstrap
 import * as bootstrap from 'bootstrap'; 
 
 @Component({
@@ -22,8 +21,14 @@ export class GoodsComponent implements OnInit {
   nameGood = "";
   id = 0;
   idToDelete = 0;
+  
+  // Переменные для управления экземплярами модалок
+  private goodsModal: any;
+  private deleteModal: any;
 
-  ngOnInit() { this.refreshData(); }
+  ngOnInit() { 
+    this.refreshData(); 
+  }
 
   refreshData() {
     this.http.get<any[]>(`${this.API_URL}/goods/`).subscribe({
@@ -32,11 +37,13 @@ export class GoodsComponent implements OnInit {
     });
   }
 
-  // Метод открытия окна через импортированный объект bootstrap
+  // Универсальный метод инициализации и показа модалки
   private showModal(modalId: string) {
     const modalElement = document.getElementById(modalId);
     if (modalElement) {
       const modalInstance = new bootstrap.Modal(modalElement);
+      if (modalId === 'goodsModal') this.goodsModal = modalInstance;
+      if (modalId === 'deleteModal') this.deleteModal = modalInstance;
       modalInstance.show();
     }
   }
@@ -55,15 +62,28 @@ export class GoodsComponent implements OnInit {
     this.showModal('goodsModal');
   }
 
+  // СОЗДАНИЕ (ACID: Ждем ответа сервера и пушим в Signal)
   createClick() {
-    this.http.post(`${this.API_URL}/goods/`, { nameGood: this.nameGood }).subscribe(() => {
-      this.refreshData();
+    this.http.post<any>(`${this.API_URL}/goods/`, { nameGood: this.nameGood }).subscribe({
+      next: (newGood) => {
+        // Мгновенно добавляем в список без GET-запроса
+        this.goods.update(items => [...items, newGood]);
+        if (this.goodsModal) this.goodsModal.hide();
+        this.nameGood = "";
+      },
+      error: (err) => alert("Ошибка при сохранении: " + err.message)
     });
   }
 
+  // ОБНОВЛЕНИЕ (Меняем только один элемент в массиве в памяти)
   updateClick() {
-    this.http.put(`${this.API_URL}/goods/${this.id}/`, { nameGood: this.nameGood }).subscribe(() => {
-      this.refreshData();
+    this.http.put<any>(`${this.API_URL}/goods/${this.id}/`, { nameGood: this.nameGood }).subscribe({
+      next: (updatedGood) => {
+        this.goods.update(items => 
+          items.map(item => item.id === this.id ? updatedGood : item)
+        );
+        if (this.goodsModal) this.goodsModal.hide();
+      }
     });
   }
 
@@ -72,9 +92,13 @@ export class GoodsComponent implements OnInit {
     this.showModal('deleteModal');
   }
 
+  // УДАЛЕНИЕ (Фильтруем список в памяти)
   confirmDelete() {
-    this.http.delete(`${this.API_URL}/goods/${this.idToDelete}/`).subscribe(() => {
-      this.refreshData();
+    this.http.delete(`${this.API_URL}/goods/${this.idToDelete}/`).subscribe({
+      next: () => {
+        this.goods.update(items => items.filter(item => item.id !== this.idToDelete));
+        if (this.deleteModal) this.deleteModal.hide();
+      }
     });
   }
 }
