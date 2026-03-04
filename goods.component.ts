@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { timeout, catchError, of } from 'rxjs'; // 🔥 Добавляем операторы RxJS
 
 declare var bootstrap: any; 
 
@@ -59,34 +58,23 @@ export class GoodsComponent implements OnInit {
     this.showModal('goodsModal');
   }
 
-  // 🔥 СКОРОСТНОЕ СОЗДАНИЕ (Не ждем тугодумный сервер)
-  createClick() {
-    if (!this.nameGood) return;
-    
-    this.http.post( `${this.API_URL}/goods/`, { nameGood: this.nameGood })
-      .pipe(
-        timeout(2500), // ⏱️ Ждем всего 2.5 секунды (вместо 30)
-        catchError(err => {
-          // Если сервер завис, но ACID в базе сработает
-          console.warn('Сервер не ответил вовремя, но мы обновляем список по ACID');
-          this.refreshData(); 
-          this.closeModal('goodsModal');
-          return of(null); // Гасим ошибку 500 для интерфейса
-        })
-      )
-      .subscribe((res) => {
-        if (res) { // Если сервер ответил быстро (до 2.5 сек)
-          this.refreshData(); 
-          this.closeModal('goodsModal');
-        }
-      });
-  }
-
   editClick(item: any) {
     this.modalTitle = "Редактировать товар";
     this.id = item.id;
     this.nameGood = item.nameGood;
     this.showModal('goodsModal');
+  }
+
+  // СТАНДАРТНОЕ СОЗДАНИЕ (Теперь летает, так как бэкенд не тормозит)
+  createClick() {
+    if (!this.nameGood) return;
+    this.http.post( `${this.API_URL}/goods/`, { nameGood: this.nameGood }).subscribe({
+      next: () => {
+        this.refreshData(); 
+        this.closeModal('goodsModal');
+      },
+      error: (err) => alert("Ошибка сохранения: " + err.message)
+    });
   }
 
   updateClick() {
